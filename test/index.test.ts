@@ -63,7 +63,7 @@ suite('VS Code Test Utilities', () => {
 		);
 		const uri = await openFile(filepath);
 		assert.strictEqual(
-			path.normalize(uri.path.substr(1)),
+			path.normalize(uri.path),
 			path.normalize(filepath),
 			'returned URI matches expected file path'
 		);

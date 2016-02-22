@@ -38,7 +38,7 @@ suite('VS Code Test Utilities', () => {
     test('openFile', () => __awaiter(this, void 0, Promise, function* () {
         const filepath = path.join(__dirname, '..', '..', 'test', 'fixtures', 'foo');
         const uri = yield src_1.openFile(filepath);
-        assert.strictEqual(path.normalize(uri.path.substr(1)), path.normalize(filepath), 'returned URI matches expected file path');
+        assert.strictEqual(path.normalize(uri.path), path.normalize(filepath), 'returned URI matches expected file path');
         assert.strictEqual(vscode_1.window.activeTextEditor.document.uri.path, uri.path, 'active document URI matches returned URI');
         assert.strictEqual(vscode_1.window.activeTextEditor.document.getText(), 'bar\n', 'active document contents match file contents');
     }));
