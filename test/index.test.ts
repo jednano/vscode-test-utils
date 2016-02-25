@@ -2,6 +2,7 @@
 
 import * as assert from 'assert';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import {
 	window,
@@ -63,7 +64,10 @@ suite('VS Code Test Utilities', () => {
 		);
 		const uri = await openFile(filepath);
 		assert.strictEqual(
-			path.normalize(uri.path),
+			path.normalize((os.platform() === 'win32')
+				? uri.path.substr(1)
+				: uri.path
+			),
 			path.normalize(filepath),
 			'returned URI matches expected file path'
 		);

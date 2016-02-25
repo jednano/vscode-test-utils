@@ -1,10 +1,8 @@
 'use strict';
 
-const testRunner = require('vscode/lib/testrunner');
+module.exports = require('vscode/lib/testrunner');
 
-testRunner.configure({
+module.exports.configure({
 	ui: 'tdd',
 	useColors: true
 });
-
-module.exports = testRunner;

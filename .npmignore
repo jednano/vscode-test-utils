@@ -1,4 +1,6 @@
 src/
 test/
+out/test/
 .*
+!.d.ts
 ts*.json

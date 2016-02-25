@@ -33,7 +33,7 @@
   "homepage": "https://github.com/jedmao/vscode-test-utils#readme",
   "devDependencies": {
     "tslint": "^3.4.0",
-    "typescript": "^1.7.5",
+    "typescript": "^1.8.2",
     "vscode": "^0.10.1"
   }
 }
