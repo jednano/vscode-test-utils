@@ -10,7 +10,7 @@ import {
 } from 'vscode';
 import {
 	closeAllFiles,
-	createTemporaryFile,
+	createFile,
 	openEmptyFile,
 	openFile
 } from '../src';
@@ -33,13 +33,29 @@ suite('VS Code Test Utilities', () => {
 		);
 	});
 
-	test('createTemporaryFile', async () => {
+	test('createFile', async () => {
 		const contents = 'foo';
-		const filename = await createTemporaryFile(contents);
+		let filename = await createFile(contents);
 		assert.strictEqual(
 			allLowerCaseMatcher.test(path.basename(filename)),
 			true,
 			'temporary file name is all lowercase'
+		);
+		fs.readFile(filename, 'utf8', (err, data) => {
+			if (err) {
+				throw err;
+			}
+			assert.strictEqual(
+				data,
+				contents,
+				'written file contains expected contents'
+			);
+		});
+		filename = await createFile(contents, 'bar');
+		assert.strictEqual(
+			path.basename(filename),
+			'bar',
+			'file name matches provided file name'
 		);
 		fs.readFile(filename, 'utf8', (err, data) => {
 			if (err) {

@@ -5,30 +5,18 @@ Test utilities for Visual Studio Code.
 
 ## API
 
-### openEmptyFile
-Asynchronously opens an empty file in the workspace.
-
 ```ts
-const uri = await testUtils.openEmptyFile();
+import * as utils from 'vscode-test-utils`;
 ```
 
-### createTemporaryFile
-Asynchronously creates a random file in the operating system's temporary directory.
+### `closeAllFiles(): Promise<void>`
+Closes all files in the workspace.
 
-```ts
-const filepath = await testUtils.createTemporaryFile(/* contents */);
-```
+### `createFile(contents: string, filename?: string): Promise<string>`
+Creates a file. If `filename` is not provided, a random file is written in the operating system's temporary directory.
 
-### openFile
-Asynchronously opens a file in the workspace.
+### `openEmptyFile(): Promise<vscode.Uri>`
+Opens an empty file in the workspace.
 
-```ts
-const uri = await testUtils.openFile(/* filepath */);
-```
-
-### closeAllFiles
-Asynchronously closes all files in the workspace.
-
-```ts
-await testUtils.closeAllFiles();
-```
+### `openFile(path: string): Promise<vscode.Uri>`
+Opens a file in the workspace.

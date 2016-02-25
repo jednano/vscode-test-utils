@@ -16,27 +16,30 @@ import {
  * the empty file that was created.
  */
 export async function openEmptyFile() {
-	const uri = await createTemporaryFile('');
+	const uri = await createFile('');
 	return await openFile(uri);
 }
 
 /**
- * Creates a random file in the operating sytem's temporary directory.
+ * Creates a file.
  *
  * @param contents File contents.
+ * @param filename Location of the file to write. If not specified,
+ * it will be written to a random file in the operating system's
+ * temporary directory.
  * @return Promise<string> A promise that resolves with the file path
  * to the file that was created.
  */
-export async function createTemporaryFile(contents: string) {
-	const tempFile = path.join(os.tmpdir(), randomName());
+export async function createFile(contents: string, filename?: string) {
+	filename = filename || path.join(os.tmpdir(), randomName());
 
 	try {
-		await fs.writeFile(tempFile, contents);
+		await fs.writeFile(filename, contents);
 	} catch (error) {
 		throw error;
 	}
 
-	return tempFile;
+	return filename;
 
 	function randomName() {
 		return Math.random().toString(36)
