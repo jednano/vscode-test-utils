@@ -1,6 +1,6 @@
 {
   "name": "vscode-test-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Test utilities for Visual Studio Code.",
   "main": "./out/src/index.js",
   "typings": "./out/src/index.d.ts",

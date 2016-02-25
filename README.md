@@ -5,13 +5,6 @@ Test utilities for Visual Studio Code.
 
 ## API
 
-First, reference the following type definition file.
-
-```ts
-/// <reference path="./node_modules/vscode-test-utils/.d.ts" />
-import * as testUtils from 'vscode-test-utils';
-```
-
 ### openEmptyFile
 Asynchronously opens an empty file in the workspace.
 
