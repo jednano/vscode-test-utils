@@ -12,9 +12,10 @@
     "*"
   ],
   "scripts": {
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "test": "npm run lint && npm run vscode-test",
+    "test": "npm run lint && npm run compile && npm run vscode-test",
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "compile": "node ./node_modules/vscode/bin/compile -p ./",
+    "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
     "vscode-test": "node ./node_modules/vscode/bin/test"
   },
   "repository": {
