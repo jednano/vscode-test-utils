@@ -2,16 +2,25 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es6",
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noImplicitUseStrict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"outDir": "out",
-		"noLib": true,
-		"sourceMap": true,
-		"declaration": true
+		"declaration": true,
+		"lib": [
+			"es6"
+		]
 	},
-	"files": [
-		"src/index.ts",
-		"test/index.ts",
-		"test/index.test.ts",
-		"typings/node.d.ts",
-		"typings/vscode-typings.d.ts"
+	"include": [
+		"node_modules/@types/node/index.d.ts",
+		"node_modules/@types/mocha/index.d.ts",
+		"src/**/*.ts",
+		"test/**/*.ts"
+	],
+	"exclude": [
+		"node_modules"
 	]
 }

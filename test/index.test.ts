@@ -1,13 +1,9 @@
-'use strict';
-
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import {
-	window,
-	workspace
-} from 'vscode';
+import { window, workspace } from 'vscode';
+
 import {
 	closeAllFiles,
 	createFile,

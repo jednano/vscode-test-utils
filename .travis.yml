@@ -1,8 +1,10 @@
 sudo: false
 
-os:
-  - osx
-  - linux
+language: node_js
+
+node_js:
+  - 'stable'
+  - '6'
 
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then

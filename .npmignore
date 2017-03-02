@@ -1,7 +1,5 @@
+.*
+ts*.json
+out/test/
 src/
 test/
-out/test/
-typings/
-.*
-!.d.ts
-ts*.json
