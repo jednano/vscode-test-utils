@@ -84,7 +84,6 @@ export async function closeAllFiles() {
 		}, 10);
 
 		commands.executeCommand('workbench.action.closeAllEditors')
-			.then(() => commands.executeCommand('workbench.files.action.closeAllFiles'))
 			.then(null, err => {
 				clearInterval(interval);
 				reject(err);

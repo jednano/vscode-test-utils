@@ -1,22 +1,23 @@
 {
   "name": "vscode-test-utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Test utilities for Visual Studio Code.",
-  "main": "./out/src/index.js",
-  "typings": "./out/src/index.d.ts",
+  "main": "out/src/index.js",
+  "types": "out/src/index.d.ts",
   "publisher": "jedmao",
   "engines": {
-    "vscode": "^0.10.1"
+    "vscode": "^1.6.0"
   },
   "activationEvents": [
     "*"
   ],
   "scripts": {
-    "test": "npm run lint && npm run compile && npm run vscode-test",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
-    "compile": "node ./node_modules/vscode/bin/compile -p ./",
-    "watch": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "vscode-test": "node ./node_modules/vscode/bin/test"
+    "compile": "tsc",
+    "lint": "tslint --project tsconfig.json",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "pretest": "npm run lint && npm run compile",
+    "test": "node ./node_modules/vscode/bin/test",
+    "vscode:prepublish": "tsc"
   },
   "repository": {
     "type": "git",
@@ -34,8 +35,10 @@
   },
   "homepage": "https://github.com/jedmao/vscode-test-utils#readme",
   "devDependencies": {
-    "tslint": "^3.4.0",
-    "typescript": "^1.8.2",
-    "vscode": "^0.10.1"
+    "@types/mocha": "^2.2.39",
+    "@types/node": "^7.0.5",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
+    "vscode": "^1.0.5"
   }
 }
