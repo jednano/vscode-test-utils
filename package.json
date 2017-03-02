@@ -1,6 +1,6 @@
 {
   "name": "vscode-test-utils",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Test utilities for Visual Studio Code.",
   "main": "out/src/index.js",
   "types": "out/src/index.d.ts",
@@ -12,12 +12,12 @@
     "*"
   ],
   "scripts": {
+    "precompile": "node ./node_modules/vscode/bin/install",
     "compile": "tsc",
     "lint": "tslint --project tsconfig.json",
-    "postinstall": "node ./node_modules/vscode/bin/install",
     "pretest": "npm run lint && npm run compile",
     "test": "node ./node_modules/vscode/bin/test",
-    "vscode:prepublish": "tsc"
+    "vscode:prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
