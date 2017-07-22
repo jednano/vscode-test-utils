@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { window, workspace } from 'vscode';
+import { window } from 'vscode';
 
 import {
 	closeAllFiles,
@@ -18,8 +18,8 @@ suite('VS Code Test Utilities', () => {
 	test('openEmptyFile', async () => {
 		const uri = await openEmptyFile();
 		assert.strictEqual(
-			window.activeTextEditor.document.uri.path,
-			uri.path,
+			window.activeTextEditor.document.uri.path.toLowerCase(),
+			uri.path.toLowerCase(),
 			'active document URI matches returned URI'
 		);
 		assert.strictEqual(
@@ -97,15 +97,20 @@ suite('VS Code Test Utilities', () => {
 
 	test('closeAllFiles', async () => {
 		assert.strictEqual(
-			workspace.textDocuments.length > 0,
+			window.visibleTextEditors.length > 0,
 			true,
 			'text documents are already opened'
 		);
 		await closeAllFiles();
 		assert.strictEqual(
-			workspace.textDocuments.length,
+			window.visibleTextEditors.length,
 			0,
-			'all text documents are closed'
+			'all text documents are not closed'
+		);
+		assert.strictEqual(
+			!window.activeTextEditor,
+			true,
+			'active text editor still exists'
 		);
 	});
 

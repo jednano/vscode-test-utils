@@ -31,15 +31,17 @@ export async function openEmptyFile() {
  * to the file that was created.
  */
 export async function createFile(contents: string, filename?: string) {
-	filename = filename || path.join(os.tmpdir(), randomName());
+	return new Promise<string>((resolve, reject) => {
+		filename = filename || path.join(os.tmpdir(), randomName());
 
-	try {
-		await fs.writeFile(filename, contents);
-	} catch (error) {
-		throw error;
-	}
-
-	return filename;
+		fs.writeFile(filename, contents, error => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(filename);
+		});
+	});
 
 	function randomName() {
 		return Math.random().toString(36)
@@ -53,8 +55,8 @@ export async function createFile(contents: string, filename?: string) {
  *
  * @return Promise<vscode.Uri> The URI to file that was opened.
  */
-export async function openFile(path: string) {
-	const uri = vscode.Uri.file(path);
+export async function openFile(filepath: string) {
+	const uri = vscode.Uri.file(filepath);
 
 	await window.showTextDocument(
 		await workspace.openTextDocument(uri)
@@ -69,27 +71,7 @@ export async function openFile(path: string) {
  * Closes all files in the workspace.
  */
 export async function closeAllFiles() {
-	return new Promise((resolve, reject) => {
-		if (window.visibleTextEditors.length === 0) {
-			return resolve();
-		}
-
-		const interval = setInterval(() => {
-			if (window.visibleTextEditors.length > 0) {
-				return;
-			}
-
-			clearInterval(interval);
-			resolve();
-		}, 10);
-
-		commands.executeCommand('workbench.action.closeAllEditors')
-			.then(null, err => {
-				clearInterval(interval);
-				reject(err);
-			});
-	}).then(() => {
-		assert.equal(window.visibleTextEditors.length, 0);
-		assert(!window.activeTextEditor);
-	});
+	return (window.visibleTextEditors.length === 0)
+		? Promise.resolve()
+		: commands.executeCommand('workbench.action.closeAllEditors');
 }
