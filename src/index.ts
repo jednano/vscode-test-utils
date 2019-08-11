@@ -1,13 +1,7 @@
-import * as assert from 'assert';
-import * as fs from 'fs';
-import * as os from 'os';
-import * as path from 'path';
-import * as vscode from 'vscode';
-import {
-	commands,
-	window,
-	workspace
-} from 'vscode';
+import * as assert from 'assert'
+import * as os from 'os'
+import * as path from 'path'
+import { commands, Uri, window, workspace } from 'vscode'
 
 /**
  * Opens an empty file in the workspace.
@@ -16,8 +10,7 @@ import {
  * the empty file that was created.
  */
 export async function openEmptyFile() {
-	const uri = await createFile('');
-	return await openFile(uri);
+	return openFile(await createFile(''))
 }
 
 /**
@@ -31,22 +24,19 @@ export async function openEmptyFile() {
  * to the file that was created.
  */
 export async function createFile(contents: string, filename?: string) {
-	return new Promise<string>((resolve, reject) => {
-		filename = filename || path.join(os.tmpdir(), randomName());
+	filename =
+		(filename && path.isAbsolute(filename) && filename) ||
+		path.join(os.tmpdir(), filename || randomName())
+	const uri = Uri.file(filename)
 
-		fs.writeFile(filename, contents, error => {
-			if (error) {
-				reject(error);
-				return;
-			}
-			resolve(filename);
-		});
-	});
+	await workspace.fs.writeFile(uri, Buffer.from(contents))
+	return uri
 
 	function randomName() {
-		return Math.random().toString(36)
+		return Math.random()
+			.toString(36)
 			.replace(/[^a-z]+/g, '')
-			.substr(0, 10);
+			.substr(0, 10)
 	}
 }
 
@@ -55,23 +45,19 @@ export async function createFile(contents: string, filename?: string) {
  *
  * @return Promise<vscode.Uri> The URI to file that was opened.
  */
-export async function openFile(filepath: string) {
-	const uri = vscode.Uri.file(filepath);
+export async function openFile(uri: Uri) {
+	await window.showTextDocument(await workspace.openTextDocument(uri))
 
-	await window.showTextDocument(
-		await workspace.openTextDocument(uri)
-	);
+	assert.ok(window.activeTextEditor)
 
-	assert.ok(window.activeTextEditor);
-
-	return uri;
+	return uri
 }
 
 /**
  * Closes all files in the workspace.
  */
 export async function closeAllFiles() {
-	return (window.visibleTextEditors.length === 0)
+	return window.visibleTextEditors.length === 0
 		? Promise.resolve()
-		: commands.executeCommand('workbench.action.closeAllEditors');
+		: commands.executeCommand('workbench.action.closeAllEditors')
 }
