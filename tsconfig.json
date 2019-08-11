@@ -1,28 +1,19 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es6",
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noImplicitUseStrict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"outDir": "out",
-		"declaration": true,
-		"lib": [
-			"es6"
-		],
-		"sourceMap": true,
-		"forceConsistentCasingInFileNames": true
-	},
-	"include": [
-		"node_modules/@types/node/index.d.ts",
-		"node_modules/@types/mocha/index.d.ts",
-		"src/**/*.ts",
-		"test/**/*.ts"
-	],
-	"exclude": [
-		"node_modules"
-	]
+  "compilerOptions": {
+    "rootDir": "src",
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "out",
+    "declaration": true,
+    "lib": ["es6"],
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["node_modules", "out", ".vscode-test"]
 }
